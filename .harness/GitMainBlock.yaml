@@ -8,7 +8,7 @@ pipeline:
         - stage:
               name: Q1
               identifier: Q1
-              description: ""
+              description: fsdfdsf
               type: Approval
               spec:
                   execution:
