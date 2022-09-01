@@ -3,7 +3,6 @@ template:
   identifier: ProStep
   versionLabel: v5
   type: Step
-  tags: {}
   spec:
     type: HarnessApproval
     timeout: 1d
