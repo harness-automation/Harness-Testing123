@@ -1,0 +1,34 @@
+template:
+  name: PipeTemplate
+  identifier: PipeTemplate
+  versionLabel: v5
+  type: Pipeline
+  projectIdentifier: AmitTest
+  orgIdentifier: GitXOrg
+  tags: {}
+  spec:
+    stages:
+      - stage:
+          name: Z2
+          identifier: Z2
+          description: ""
+          type: Approval
+          spec:
+            execution:
+              steps:
+                - step:
+                    name: de2
+                    identifier: de2
+                    type: HarnessApproval
+                    timeout: 1d
+                    spec:
+                      approvalMessage: |-
+                        Please review the following information
+                        and approve the pipeline progression
+                      includePipelineExecutionHistory: true
+                      approvers:
+                        minimumCount: 1
+                        disallowPipelineExecutor: false
+                        userGroups: <+input>
+                      approverInputs: []
+          tags: {}
