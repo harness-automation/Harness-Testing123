@@ -1,0 +1,23 @@
+pipeline:
+  name: PipIMR
+  identifier: PipIMR
+  template:
+    templateRef: PipImran
+    versionLabel: v2
+    templateInputs:
+      stages:
+        - stage:
+            identifier: q1
+            type: Approval
+            spec:
+              execution:
+                steps:
+                  - step:
+                      identifier: q11
+                      type: HarnessApproval
+                      spec:
+                        approvers:
+                          userGroups: <+input>
+  tags: {}
+  projectIdentifier: AmitTest
+  orgIdentifier: GitXOrg
