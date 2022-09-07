@@ -10,7 +10,7 @@ template:
     type: HarnessApproval
     timeout: 1d
     spec:
-      approvalMessage: Pleasekjgkghdhogression ✅✅✅✅🚀
+      approvalMessage: Pleassion ✅✅✅✅🚀
       includePipelineExecutionHistory: true
       approvers:
         userGroups: <+input>
