@@ -6,7 +6,7 @@ pipeline:
   tags: {}
   stages:
     - stage:
-        name: sw
+        name: swdfe
         identifier: sw
         template:
           templateRef: InlineStage
