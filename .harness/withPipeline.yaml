@@ -1,5 +1,5 @@
 pipeline:
-  name: withPipeline
+  name: withPipelinePR
   identifier: withPipeline
   template:
     templateRef: InlinePipeline
