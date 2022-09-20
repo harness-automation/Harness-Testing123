@@ -1,0 +1,19 @@
+template:
+  name: Qstage
+  identifier: Qstage
+  versionLabel: v1
+  type: Stage
+  projectIdentifier: imranTest
+  orgIdentifier: default
+  tags: {}
+  spec:
+    type: Approval
+    spec:
+      execution:
+        steps:
+          - step:
+              name: sss
+              identifier: sss
+              template:
+                templateRef: Qstep
+                versionLabel: v1
