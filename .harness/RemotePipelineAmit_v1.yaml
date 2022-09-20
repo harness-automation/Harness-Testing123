@@ -1,0 +1,29 @@
+template:
+  name: RemotePipelineAmit
+  identifier: RemotePipelineAmit
+  versionLabel: v1
+  type: Pipeline
+  tags: {}
+  spec:
+    stages:
+      - stage:
+          name: A3456
+          identifier: A3456
+          template:
+            templateRef: account.RemoteStageAmit
+            versionLabel: v1
+            templateInputs:
+              type: Approval
+              spec:
+                execution:
+                  steps:
+                    - step:
+                        identifier: A12
+                        template:
+                          templateInputs:
+                            type: HarnessApproval
+                            timeout: <+input>
+                            spec:
+                              approvers:
+                                userGroups: <+input>
+                                minimumCount: <+input>
