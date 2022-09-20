@@ -1,0 +1,16 @@
+template:
+  name: StageInPipeline
+  identifier: StageInPipeline
+  versionLabel: v1
+  type: Pipeline
+  projectIdentifier: imranTest
+  orgIdentifier: default
+  tags: {}
+  spec:
+    stages:
+      - stage:
+          name: ddff
+          identifier: ddff
+          template:
+            templateRef: RemoteStageP
+            versionLabel: v1
