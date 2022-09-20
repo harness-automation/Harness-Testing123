@@ -14,8 +14,8 @@ pipeline:
           execution:
             steps:
               - step:
-                  name: we3
-                  identifier: we3
+                  name: werr33
+                  identifier: werr33
                   template:
                     templateRef: InlineStep
                     versionLabel: v1
