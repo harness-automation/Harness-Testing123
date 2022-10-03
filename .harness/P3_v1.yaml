@@ -1,0 +1,17 @@
+template:
+  name: P3
+  identifier: P3
+  versionLabel: v1
+  type: Stage
+  tags: {}
+  spec:
+    type: Approval
+    spec:
+      execution:
+        steps:
+          - step:
+              name: dd
+              identifier: dd
+              template:
+                templateRef: account.P1
+                versionLabel: v1
