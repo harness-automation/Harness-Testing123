@@ -1,0 +1,17 @@
+template:
+  name: RemoteStageAmitOct4
+  identifier: RemoteStageAmitOct4
+  versionLabel: v1
+  type: Stage
+  tags: {}
+  spec:
+    type: Approval
+    spec:
+      execution:
+        steps:
+          - step:
+              name: A23
+              identifier: A23
+              template:
+                templateRef: account.P1
+                versionLabel: v1
