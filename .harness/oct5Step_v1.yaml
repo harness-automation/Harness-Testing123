@@ -1,0 +1,17 @@
+template:
+  name: oct5Step
+  identifier: oct5Step
+  type: Step
+  tags: {}
+  spec:
+    type: HarnessApproval
+    timeout: 1d
+    spec:
+      approvalMessage: Pleasezxsfs
+      includePipelineExecutionHistory: true
+      approvers:
+        userGroups: <+input>
+        minimumCount: 3
+        disallowPipelineExecutor: false
+      approverInputs: []
+  versionLabel: v1
