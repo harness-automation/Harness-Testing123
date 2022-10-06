@@ -1,0 +1,20 @@
+template:
+  name: Step in nonDefault branch
+  identifier: Step_in_nonDefault_branch
+  type: Step
+  projectIdentifier: ProdMigration
+  orgIdentifier: default
+  tags: {}
+  spec:
+    timeout: 10m
+    type: ShellScript
+    spec:
+      shell: Bash
+      onDelegate: true
+      source:
+        type: Inline
+        spec:
+          script: echo 'non default'
+      environmentVariables: []
+      outputVariables: []
+  versionLabel: v2
