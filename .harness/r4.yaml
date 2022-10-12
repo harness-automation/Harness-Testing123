@@ -1,0 +1,21 @@
+inputSet:
+  identifier: "r4"
+  name: "r4"
+  orgIdentifier: "Simlified_Git_sync"
+  projectIdentifier: "SimplifiedGitSync_Do_Not_Delete"
+  pipeline:
+    identifier: "qwe123"
+    stages:
+    - stage:
+        identifier: "q2"
+        type: "Approval"
+        spec:
+          execution:
+            steps:
+            - step:
+                identifier: "e3"
+                type: "HarnessApproval"
+                spec:
+                  approvers:
+                    userGroups:
+                    - "account.PLQE"
