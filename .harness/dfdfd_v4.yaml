@@ -1,0 +1,19 @@
+template:
+  name: dfdfd
+  identifier: dfdfd
+  versionLabel: v4
+  type: Step
+  projectIdentifier: test5678
+  orgIdentifier: default
+  tags: {}
+  spec:
+    type: HarnessApproval
+    timeout: 1d
+    spec:
+      approvalMessage: Please review the following information and approve the pipeline progression
+      includePipelineExecutionHistory: true
+      approvers:
+        userGroups: <+input>
+        minimumCount: 1
+        disallowPipelineExecutor: false
+      approverInputs: []
