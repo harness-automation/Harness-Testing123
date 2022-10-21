@@ -3,8 +3,6 @@ template:
   identifier: PipeTemplate
   versionLabel: v5
   type: Pipeline
-  projectIdentifier: AmitTest
-  orgIdentifier: GitXOrg
   tags: {}
   spec:
     stages:
