@@ -1,0 +1,30 @@
+pipeline:
+  name: TestTriggerNov8
+  identifier: TestTriggerNov8
+  projectIdentifier: AmitTest
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: A34
+        identifier: A34
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  type: ShellScript
+                  name: A22
+                  identifier: A22
+                  spec:
+                    shell: Bash
+                    onDelegate: true
+                    source:
+                      type: Inline
+                      spec:
+                        script: echo 'hello'
+                    environmentVariables: []
+                    outputVariables: []
+                  timeout: 10m
+        tags: {}
