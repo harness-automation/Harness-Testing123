@@ -7,8 +7,8 @@ pipeline:
   properties:
     ci:
       codebase:
-        connectorRef: account.abc123
-        repoName: flask_example.git
+        connectorRef: account.github_Account_level_connector_delegate
+        repoName: Harness-Testing.git
         build: <+input>
   stages:
     - stage:
