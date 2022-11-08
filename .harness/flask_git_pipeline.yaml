@@ -52,7 +52,7 @@ pipeline:
                             gitFetchType: Branch
                             paths:
                               - helm/values.yaml
-                            repoName: devops/flask_pipeline_example.git
+                            repoName: Harness-Testing.git
                             branch: main
               type: Kubernetes
           infrastructure:
