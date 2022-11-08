@@ -72,7 +72,8 @@ pipeline:
                   identifier: Rolling_Deployment
                   spec:
                     skipDryRun: false
-                  timeout: 10m
+                    pruningEnabled: false
+                  timeout: 11m
                   failureStrategies: []
             rollbackSteps: []
           serviceDependencies: []
