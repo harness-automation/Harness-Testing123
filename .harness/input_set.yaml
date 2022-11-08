@@ -1,0 +1,14 @@
+inputSet:
+  identifier: "Default_input_set"
+  name: "Default_input_set"
+  orgIdentifier: "default"
+  projectIdentifier: "AmitTest"
+  pipeline:
+    identifier: "flask_git_pipeline"
+    properties:
+      ci:
+        codebase:
+          build:
+            type: "branch"
+            spec:
+              branch: "<+trigger.branch>"

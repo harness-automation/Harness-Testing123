@@ -1,0 +1,21 @@
+inputSet:
+  identifier: "set543"
+  name: "set543"
+  orgIdentifier: "GitXOrg"
+  projectIdentifier: "Force_Import_Test"
+  pipeline:
+    identifier: "RemoteIssueCheck"
+    stages:
+    - stage:
+        identifier: "A2"
+        type: "Approval"
+        spec:
+          execution:
+            steps:
+            - step:
+                identifier: "A3"
+                type: "HarnessApproval"
+                spec:
+                  approvers:
+                    userGroups:
+                    - "account.viewer"

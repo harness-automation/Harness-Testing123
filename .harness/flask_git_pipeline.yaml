@@ -1,0 +1,353 @@
+pipeline:
+  name: flask_git_pipeline
+  identifier: flask_git_pipeline
+  projectIdentifier: AmitTest
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: account.abc
+        repoName: flask_example.git
+        build: <+input>
+  stages:
+    - stage:
+        name: Docker Build
+        identifier: Docker_Build
+        template:
+          templateRef: git_testtemplate
+          versionLabel: "1"
+    - stage:
+        type: Deployment
+        spec:
+          serviceConfig:
+            serviceRef: flaskservice
+            serviceDefinition:
+              spec:
+                variables:
+                  - name: base_domain
+                    type: Secret
+                    value: flaskdevtest
+                manifests:
+                  - manifest:
+                      identifier: flask_pipeline_helm
+                      type: HelmChart
+                      spec:
+                        store:
+                          type: Http
+                          spec:
+                            connectorRef: org.Nexus_BM
+                        chartName: flask_pipeline_helm
+                        chartVersion: ""
+                        helmVersion: V3
+                        skipResourceVersioning: false
+                  - manifest:
+                      identifier: dev_values
+                      type: Values
+                      spec:
+                        store:
+                          type: GitLab
+                          spec:
+                            connectorRef: org.gitlaborg
+                            gitFetchType: Branch
+                            paths:
+                              - helm/values.yaml
+                            repoName: devops/flask_pipeline_example.git
+                            branch: main
+              type: Kubernetes
+          infrastructure:
+            environmentRef: devrelease
+            infrastructureDefinition:
+              type: KubernetesDirect
+              spec:
+                connectorRef: org.ibdevc1
+                namespace: flask-example-dev
+                releaseName: release-<+INFRA_KEY>
+            allowSimultaneousDeployments: false
+          execution:
+            steps:
+              - step:
+                  type: K8sRollingDeploy
+                  name: Rolling Deployment
+                  identifier: Rolling_Deployment
+                  spec:
+                    skipDryRun: false
+                    pruningEnabled: false
+                  timeout: 11m
+                  failureStrategies: []
+            rollbackSteps: []
+          serviceDependencies: []
+        failureStrategies:
+          - onFailure:
+              errors:
+                - AllErrors
+              action:
+                type: StageRollback
+        name: Deploy Dev
+        identifier: Deploy_Dev
+        tags: {}
+        when:
+          pipelineStatus: Success
+          condition: 1==2
+    - stage:
+        type: Deployment
+        spec:
+          serviceConfig:
+            serviceRef: flaskservice
+            serviceDefinition:
+              spec:
+                variables:
+                  - name: base_domain
+                    type: String
+                    value: flask-stage.eng.infiniteblue.com
+                manifests:
+                  - manifest:
+                      identifier: flask_pipeline_helm
+                      type: HelmChart
+                      spec:
+                        store:
+                          type: Http
+                          spec:
+                            connectorRef: org.Nexus_BM
+                        chartName: flask_pipeline_helm
+                        chartVersion: ""
+                        helmVersion: V3
+                        skipResourceVersioning: false
+                  - manifest:
+                      identifier: dev_values
+                      type: Values
+                      spec:
+                        store:
+                          type: GitLab
+                          spec:
+                            connectorRef: org.gitlaborg
+                            gitFetchType: Branch
+                            paths:
+                              - helm/values.yaml
+                            repoName: devops/flask_pipeline_example.git
+                            branch: main
+              type: Kubernetes
+          infrastructure:
+            environmentRef: devrelease
+            infrastructureDefinition:
+              type: KubernetesDirect
+              spec:
+                connectorRef: org.ibdevc1
+                namespace: flask-example-stage
+                releaseName: release-<+INFRA_KEY>
+            allowSimultaneousDeployments: false
+          execution:
+            steps:
+              - step:
+                  type: K8sRollingDeploy
+                  name: Rolling Deployment
+                  identifier: Rolling_Deployment
+                  spec:
+                    skipDryRun: false
+                  timeout: 10m
+                  failureStrategies: []
+            rollbackSteps: []
+          serviceDependencies: []
+        failureStrategies:
+          - onFailure:
+              errors:
+                - AllErrors
+              action:
+                type: StageRollback
+        name: Deploy Stage
+        identifier: Deploy_Stage
+        tags: {}
+        when:
+          pipelineStatus: Success
+          condition: <+pipeline.stages.Docker_Build.spec.execution.steps.Determine_Version.output.outputVariables.ENV> =~ "stage|prod"
+    - stage:
+        type: Approval
+        spec:
+          execution:
+            steps:
+              - step:
+                  name: Jira Create
+                  identifier: Jira_Create
+                  type: JiraCreate
+                  timeout: 5m
+                  spec:
+                    connectorRef: org.Jira_devops_user
+                    projectKey: CC
+                    issueType: Generic Change Request
+                    fields:
+                      - name: Description
+                        value: Approve push of <+project.name> to production
+                      - name: Summary
+                        value: Approve push of <+project.name> to production
+                  failureStrategies: []
+              - step:
+                  type: ShellScript
+                  name: Notify Teams
+                  identifier: Notify_Teams
+                  spec:
+                    shell: Bash
+                    onDelegate: true
+                    source:
+                      type: Inline
+                      spec:
+                        script: |-
+                          curl -H "Content-Type: application/json" \
+                          https://bcinthecloud.webhook.office.com/webhookb2/414bb533-0b4b-4b9d-b8a7-6c7af1fa913e@0e6df141-44c2-4359-bc4b-7f8d612bd192/IncomingWebhook/0663e7b1781d4bfc80bf477550d77996/19283ed5-21fa-4266-9092-e00274ed74fa \
+                          --data-raw '{
+                              "@type": "MessageCard",
+                              "@context": "http://schema.org/extensions",
+                              "themeColor": "0076D7",
+                              "summary": "Production Deployment Requested",
+                              "sections": [{
+                                  "activityTitle": "Production Deployment Requested",
+                                  "activitySubtitle": "CC Request",
+                                  "activityImage": "",
+                                  "facts": [{
+                                      "name": "Stage",
+                                      "value": "<+stage.name>"
+                                  },
+                                  {
+                                      "name": "Pipeline",
+                                      "value": "<+pipeline.name>"
+                                  },
+                                  {
+                                      "name": "Project",
+                                      "value": "<+project.name>"
+                                  },
+                                  {
+                                      "name": "Triggered By",
+                                      "value": "<+pipeline.triggeredBy.name>"
+                                  },
+                                  {
+                                      "name": "Events",
+                                      "value": "Change Control Request Submitted"
+                                  },
+                                  {
+                                      "name": "Pipeline",
+                                      "value": "[<+pipeline.name>](https://app.harness.io/ng/#/account/w7IlUgYvTjuwAgKFEc4Q7w/cd/orgs/default/projects/<+project.identifier>/pipelines/<+pipeline.identifier>/executions/<+pipeline.executionId>/pipeline)"
+                                  },
+                                  {
+                                      "name": "CC Request",
+                                      "value": "[Jira Request](https://infiniteblue.atlassian.net/browse/<+spec.execution.steps.Jira_Create.issue.key>)"
+                                  }],
+                                  "markdown": true
+                              }]
+                          }'
+                    environmentVariables: []
+                    outputVariables: []
+                    executionTarget: {}
+                    delegateSelectors:
+                      - ib-services
+                  timeout: 10m
+                  failureStrategies: []
+              - step:
+                  type: JiraApproval
+                  name: Stage Approve
+                  identifier: Stage_Approve
+                  spec:
+                    connectorRef: org.Jira_devops_user
+                    projectKey: CC
+                    issueType: Test2 Change Request
+                    approvalCriteria:
+                      type: KeyValues
+                      spec:
+                        matchAnyCondition: true
+                        conditions:
+                          - key: Status
+                            operator: equals
+                            value: Approved
+                    rejectionCriteria:
+                      type: KeyValues
+                      spec:
+                        matchAnyCondition: true
+                        conditions: []
+                    issueKey: <+pipeline.stages.Prod_Approval.spec.execution.steps.Jira_Create.issue.key>
+                  timeout: 1d
+              - step:
+                  type: JiraUpdate
+                  name: Stage Update
+                  identifier: Stage_Update
+                  spec:
+                    connectorRef: IB_Jira_Connector
+                    issueKey: <+pipeline.stages.Prod_Approval.spec.execution.steps.Jira_Create.issue.key>
+                    fields: []
+                  timeout: 1d
+          serviceDependencies: []
+        name: Prod Approval
+        identifier: Prod_Approval
+        tags: {}
+        when:
+          pipelineStatus: Success
+          condition: <+pipeline.stages.Docker_Build.spec.execution.steps.Determine_Version.output.outputVariables.ENV> == "prod"
+    - stage:
+        type: Deployment
+        spec:
+          serviceConfig:
+            serviceRef: flaskservice
+            serviceDefinition:
+              spec:
+                variables:
+                  - name: base_domain
+                    type: String
+                    value: flask-prod.eng.infiniteblue.com
+                manifests:
+                  - manifest:
+                      identifier: flask_pipeline_helm
+                      type: HelmChart
+                      spec:
+                        store:
+                          type: Http
+                          spec:
+                            connectorRef: org.Nexus_BM
+                        chartName: flask_pipeline_helm
+                        chartVersion: ""
+                        helmVersion: V3
+                        skipResourceVersioning: false
+                  - manifest:
+                      identifier: values
+                      type: Values
+                      spec:
+                        store:
+                          type: GitLab
+                          spec:
+                            connectorRef: org.gitlaborg
+                            gitFetchType: Branch
+                            paths:
+                              - helm/values.yaml
+                            repoName: devops/flask_pipeline_example.git
+                            branch: main
+              type: Kubernetes
+          infrastructure:
+            environmentRef: devrelease
+            infrastructureDefinition:
+              type: KubernetesDirect
+              spec:
+                connectorRef: org.ibdevc1
+                namespace: flask-example-prod
+                releaseName: release-<+INFRA_KEY>
+            allowSimultaneousDeployments: false
+          execution:
+            steps:
+              - step:
+                  type: K8sRollingDeploy
+                  name: Rolling Deployment
+                  identifier: Rolling_Deployment
+                  spec:
+                    skipDryRun: false
+                  timeout: 10m
+                  failureStrategies: []
+            rollbackSteps: []
+          serviceDependencies: []
+        failureStrategies:
+          - onFailure:
+              errors:
+                - AllErrors
+              action:
+                type: StageRollback
+        name: Deploy Production
+        identifier: Deploy_Production
+        tags: {}
+        when:
+          pipelineStatus: Success
+          condition: <+pipeline.stages.Docker_Build.spec.execution.steps.Determine_Version.output.outputVariables.ENV> == "prod"
+  variables: []

@@ -1,0 +1,9 @@
+pipeline:
+  name: withPipeline
+  identifier: withPipeline
+  template:
+    templateRef: InlinePipeline
+    versionLabel: v1
+  tags: {}
+  projectIdentifier: imranTest
+  orgIdentifier: default

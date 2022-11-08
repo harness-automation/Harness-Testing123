@@ -1,0 +1,116 @@
+template:
+  name: git_testtemplate
+  type: Stage
+  projectIdentifier: AmitTest
+  orgIdentifier: default
+  spec:
+    type: CI
+    spec:
+      cloneCodebase: true
+      infrastructure:
+        type: KubernetesDirect
+        spec:
+          connectorRef: org.ibservices
+          namespace: harness-build
+          automountServiceAccountToken: true
+          nodeSelector: {}
+          os: Linux
+      execution:
+        steps:
+          - step:
+              type: Run
+              name: Brancher Breaker
+              identifier: Brancher_Breaker
+              spec:
+                connectorRef: org.DockerHub
+                image: harness/drone-git
+                shell: Sh
+                command: |-
+                  #!/bin/bash
+                  echo "Trigger tester 2. Womp womp."
+                  echo "break things";
+                  exit 1;
+          - step:
+              type: Run
+              name: Determine Version
+              identifier: Determine_Version
+              spec:
+                connectorRef: org.DockerHub
+                image: harness/drone-git
+                shell: Sh
+                command: |-
+                  mkdir ~/.ssh
+                  chmod 700 ~/.ssh
+                  echo '<+secrets.getValue("account.sshgithubfile")>' > ~/.ssh/id_rsa
+                  chmod 600 ~/.ssh/id_rsa
+
+                  env
+
+                  export GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa"
+
+                  git fetch
+
+                  LASTTAG=`git describe --tags --abbrev=0 || echo 0.0.0`
+
+                  echo '<+trigger.payload.ref>'
+
+                  REF=`echo <+trigger.payload.ref> | cut -d/ -f3`
+
+                  if [[ $REF == "null" ]]
+                  then
+                      if [[ $DRONE_BUILD_EVENT == "tag" ]]
+                      then
+                          REF=$DRONE_TAG
+                      else
+                          REF=$DRONE_COMMIT_BRANCH
+                      fi
+                  fi
+
+                  if [[ $REF =~ [0-9]+.[0-9]+.[0-9]+.* ]]
+                  then
+                      if [[ $REF != $LASTTAG ]]
+                      then
+                          # REF matches a release tag, but doesn't match the latest.
+                          # Let's make sure it actually exists as a tag.
+                          git tag | egrep ^0.0.10$ >/dev/null && echo "" || echo "tag not found" && exit 2
+                      fi
+
+                      git checkout $LASTTAG
+                      VERSION=$LASTTAG
+
+                      if [[ $REF =~ .*-rc.* ]]
+                      then
+                          ENV="stage"
+                      else
+                          ENV="prod"
+                      fi
+                  else
+                      VERSION="$LASTTAG-$REF-<+pipeline.sequenceId>"
+                      if [[ "$REF" == "main" ]]
+                      then
+                          ENV="dev"
+                      fi
+                  fi
+
+                  export ENV
+
+                  echo $ENV
+                  export VERSION
+                outputVariables:
+                  - name: VERSION
+                  - name: ENV
+              failureStrategies: []
+          - step:
+              type: BuildAndPushDockerRegistry
+              name: Docker Build
+              identifier: Docker_Build
+              spec:
+                connectorRef: org.dockerorg
+                repo: registry.gitlab.com/infiniteblue/devops/flask_pipeline_example
+                tags:
+                  - <+pipeline.stages.Docker_Build.spec.execution.steps.Determine_Version.output.outputVariables.VERSION>
+    when:
+      pipelineStatus: Success
+      condition: 1==1
+  identifier: git_testtemplate
+  versionLabel: "1"

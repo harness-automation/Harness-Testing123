@@ -1,0 +1,27 @@
+pipeline:
+  name: withStep
+  identifier: withStep
+  projectIdentifier: imranTest
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: q1
+        identifier: q1
+        description: ""
+        type: Approval
+        spec:
+          execution:
+            steps:
+              - step:
+                  name: we3
+                  identifier: we3
+                  template:
+                    templateRef: InlineStep
+                    versionLabel: v1
+                    templateInputs:
+                      type: HarnessApproval
+                      spec:
+                        approvers:
+                          userGroups: <+input>
+        tags: {}
