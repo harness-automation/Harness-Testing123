@@ -8,7 +8,7 @@ pipeline:
     - stage:
         name: A1
         identifier: A1
-        description: ""
+        description: sadsd
         type: Approval
         spec:
           execution:
