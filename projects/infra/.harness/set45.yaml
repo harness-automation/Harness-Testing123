@@ -1,0 +1,47 @@
+inputSet:
+  identifier: "set45"
+  name: "set45"
+  orgIdentifier: "default"
+  projectIdentifier: "check26Sense"
+  pipeline:
+    identifier: "pipe9Nov"
+    stages:
+    - stage:
+        identifier: "config12"
+        template:
+          templateInputs:
+            type: "Deployment"
+            spec:
+              serviceConfig:
+                serviceRef: "aq"
+                serviceDefinition:
+                  type: "Kubernetes"
+                  spec:
+                    variables:
+                    - name: "desired_replicas"
+                      type: "Number"
+                      value: 1
+                    - name: "max_replicas"
+                      type: "Number"
+                      value: 2
+                    manifests:
+                    - manifest:
+                        identifier: "k8smanifests"
+                        type: "K8sManifest"
+                        spec:
+                          store:
+                            type: "Github"
+                            spec:
+                              branch: "main"
+                    artifacts:
+                      primary:
+                        type: "Ecr"
+                        spec:
+                          imagePath: "aws"
+                          tag: "qwe"
+              infrastructure:
+                environmentRef: "ght"
+                infrastructureDefinition:
+                  type: "KubernetesDirect"
+                  spec:
+                    namespace: "qwe"
