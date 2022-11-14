@@ -1,0 +1,30 @@
+pipeline:
+  name: Pipe14
+  identifier: Pipe14
+  projectIdentifier: AmitTest
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: Q1
+        identifier: Q1
+        description: ""
+        type: Approval
+        spec:
+          execution:
+            steps:
+              - step:
+                  type: ShellScript
+                  name: Shell Script
+                  identifier: ShellScript
+                  spec:
+                    shell: Bash
+                    onDelegate: true
+                    source:
+                      type: Inline
+                      spec:
+                        script: echo 'akjhsdjk'
+                    environmentVariables: []
+                    outputVariables: []
+                  timeout: 10m
+        tags: {}
