@@ -8,7 +8,7 @@ pipeline:
     - stage:
         name: Q1
         identifier: Q1
-        description: "update - 15 nov 22"
+        description: update - 15 nov 22
         type: Approval
         spec:
           execution:
@@ -23,7 +23,7 @@ pipeline:
                     source:
                       type: Inline
                       spec:
-                        script: echo 'akjhsdjklmonpq'
+                        script: <+input>
                     environmentVariables: []
                     outputVariables: []
                   timeout: 10m
