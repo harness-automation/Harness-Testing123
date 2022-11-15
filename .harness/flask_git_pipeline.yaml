@@ -7,7 +7,7 @@ pipeline:
   properties:
     ci:
       codebase:
-        connectorRef: account.github_Account_level_connector_delegate
+        connectorRef: account.github_Account_level_connector_deleg
         repoName: Harness-Testing.git
         build: <+input>
   stages:
