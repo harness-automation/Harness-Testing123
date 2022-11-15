@@ -1,0 +1,22 @@
+inputSet:
+  identifier: "nov16InputSet"
+  name: "nov16InputSet"
+  orgIdentifier: "default"
+  projectIdentifier: "AmitTest"
+  pipeline:
+    identifier: "Pipe14"
+    stages:
+    - stage:
+        identifier: "Q1"
+        type: "Approval"
+        spec:
+          execution:
+            steps:
+            - step:
+                identifier: "ShellScript"
+                type: "ShellScript"
+                spec:
+                  source:
+                    type: "Inline"
+                    spec:
+                      script: "echo 'hello'"
