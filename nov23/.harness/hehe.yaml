@@ -1,0 +1,25 @@
+pipeline:
+  name: hehe
+  identifier: hehe
+  projectIdentifier: imr
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: df
+        identifier: df
+        template:
+          templateRef: account.InlineStage
+          versionLabel: v1
+          templateInputs:
+            type: Approval
+            spec:
+              execution:
+                steps:
+                  - step:
+                      identifier: A2
+                      type: HarnessApproval
+                      spec:
+                        approvers:
+                          userGroups:
+                            - account._account_all_users
