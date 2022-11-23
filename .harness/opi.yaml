@@ -8,7 +8,7 @@ pipeline:
     - stage:
         name: qqwwe
         identifier: qqwwe
-        description: adsdasd
+        description: oooooooo
         type: Approval
         spec:
           execution:
