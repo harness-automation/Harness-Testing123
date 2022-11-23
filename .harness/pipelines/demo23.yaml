@@ -8,7 +8,7 @@ pipeline:
     - stage:
         name: q22
         identifier: q22
-        description: cnkjchbs
+        description: cnkasdcdsfsdfdsfdsd
         type: Approval
         spec:
           execution:
