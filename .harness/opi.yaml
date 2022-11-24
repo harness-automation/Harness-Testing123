@@ -1,5 +1,5 @@
 pipeline:
-  name: opi
+  name: opiko
   identifier: opi
   projectIdentifier: imranTest
   orgIdentifier: default
