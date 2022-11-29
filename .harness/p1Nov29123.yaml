@@ -1,0 +1,29 @@
+pipeline:
+  name: p1Nov29123
+  identifier: p1Nov29123
+  projectIdentifier: demo_3_git_sync
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: fgr
+        identifier: fgr
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  name: ghj
+                  identifier: ghj
+                  template:
+                    templateRef: Step29Nov1
+                    versionLabel: "1"
+                    templateInputs:
+                      type: ShellScript
+                      spec:
+                        source:
+                          type: Inline
+                          spec:
+                            script: <+input>
+        tags: {}
