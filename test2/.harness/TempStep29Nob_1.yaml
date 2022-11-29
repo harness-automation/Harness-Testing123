@@ -1,0 +1,20 @@
+template:
+  name: TempStep29Nob
+  identifier: TempStep29Nob
+  versionLabel: "1"
+  type: Step
+  projectIdentifier: TracTable
+  orgIdentifier: default
+  tags: {}
+  spec:
+    timeout: 10m
+    type: ShellScript
+    spec:
+      shell: Bash
+      onDelegate: true
+      source:
+        type: Inline
+        spec:
+          script: <+input>
+      environmentVariables: []
+      outputVariables: []
