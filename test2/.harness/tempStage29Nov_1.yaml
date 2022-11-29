@@ -1,0 +1,26 @@
+template:
+  name: tempStage29Nov
+  identifier: tempStage29Nov
+  versionLabel: "1"
+  type: Stage
+  projectIdentifier: TracTable
+  orgIdentifier: default
+  tags: {}
+  spec:
+    type: Custom
+    spec:
+      execution:
+        steps:
+          - step:
+              name: f4
+              identifier: f4
+              template:
+                templateRef: TempStep29Nob
+                versionLabel: "1"
+                templateInputs:
+                  type: ShellScript
+                  spec:
+                    source:
+                      type: Inline
+                      spec:
+                        script: <+input>
