@@ -1,0 +1,26 @@
+template:
+  name: nestedStage29Nov
+  identifier: nestedStage29Nov
+  versionLabel: "1"
+  type: Stage
+  projectIdentifier: Demo2Check29Nov
+  orgIdentifier: default
+  tags: {}
+  spec:
+    type: Custom
+    spec:
+      execution:
+        steps:
+          - step:
+              name: r5
+              identifier: r5
+              template:
+                templateRef: demo2Step29Nov
+                versionLabel: "1"
+                templateInputs:
+                  type: ShellScript
+                  spec:
+                    source:
+                      type: Inline
+                      spec:
+                        script: <+input>
