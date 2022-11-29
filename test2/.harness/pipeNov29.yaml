@@ -1,0 +1,28 @@
+pipeline:
+  name: pipeNov29
+  identifier: pipeNov29
+  projectIdentifier: TracTable
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: f5
+        identifier: f5
+        template:
+          templateRef: tempStage29Nov
+          versionLabel: "1"
+          templateInputs:
+            type: Custom
+            spec:
+              execution:
+                steps:
+                  - step:
+                      identifier: f4
+                      template:
+                        templateInputs:
+                          type: ShellScript
+                          spec:
+                            source:
+                              type: Inline
+                              spec:
+                                script: <+input>
