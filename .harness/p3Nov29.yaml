@@ -1,0 +1,50 @@
+pipeline:
+  name: p3Nov29
+  identifier: p3Nov29
+  projectIdentifier: Demo2Check29Nov
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: gh
+        identifier: gh
+        template:
+          templateRef: nestedStage29Nov
+          versionLabel: "1"
+          templateInputs:
+            type: Custom
+            spec:
+              execution:
+                steps:
+                  - step:
+                      identifier: r5
+                      template:
+                        templateInputs:
+                          type: ShellScript
+                          spec:
+                            source:
+                              type: Inline
+                              spec:
+                                script: <+input>
+    - stage:
+        name: gtr
+        identifier: gtr
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  name: ght6j
+                  identifier: ght6j
+                  template:
+                    templateRef: demo2Step29Nov
+                    versionLabel: "1"
+                    templateInputs:
+                      type: ShellScript
+                      spec:
+                        source:
+                          type: Inline
+                          spec:
+                            script: <+input>
+        tags: {}
