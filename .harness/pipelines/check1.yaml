@@ -8,7 +8,7 @@ pipeline:
     - stage:
         name: as
         identifier: as
-        description: ""
+        description: xdcs
         type: Approval
         spec:
           execution:
