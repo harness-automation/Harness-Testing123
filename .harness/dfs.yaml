@@ -1,0 +1,22 @@
+pipeline:
+  name: dfs
+  identifier: dfs
+  projectIdentifier: imr
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: sd
+        identifier: sd
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  type: Wait
+                  name: Wait
+                  identifier: Wait
+                  spec:
+                    duration: 10m
+        tags: {}
