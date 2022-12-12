@@ -1,0 +1,31 @@
+pipeline:
+  name: saaaa
+  identifier: saaaa
+  projectIdentifier: import_UI_automation
+  orgIdentifier: GitXOrg
+  tags: {}
+  stages:
+    - stage:
+        name: sa
+        identifier: sa
+        description: ""
+        type: Approval
+        spec:
+          execution:
+            steps:
+              - step:
+                  name: dds
+                  identifier: dds
+                  type: HarnessApproval
+                  timeout: 1d
+                  spec:
+                    approvalMessage: |-
+                      Please review the following information
+                      and approve the pipeline progression
+                    includePipelineExecutionHistory: true
+                    approvers:
+                      minimumCount: 1
+                      disallowPipelineExecutor: false
+                      userGroups: <+input>
+                    approverInputs: []
+        tags: {}
