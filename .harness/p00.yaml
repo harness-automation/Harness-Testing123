@@ -1,6 +1,7 @@
 inputSet:
   identifier: "p00"
-  name: "p00"
+  name: "p0011"
+  tags: {}
   orgIdentifier: "GitXOrg"
   projectIdentifier: "AmitTest"
   pipeline:
