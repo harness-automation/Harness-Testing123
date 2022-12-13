@@ -1,0 +1,20 @@
+inputSet:
+  identifier: "p00"
+  name: "p00"
+  orgIdentifier: "GitXOrg"
+  projectIdentifier: "AmitTest"
+  pipeline:
+    identifier: "dec13"
+    stages:
+    - stage:
+        identifier: "q1"
+        type: "Approval"
+        spec:
+          execution:
+            steps:
+            - step:
+                identifier: "w2"
+                type: "HarnessApproval"
+                spec:
+                  approvers:
+                    userGroups: "<+input>.executionInput()"
