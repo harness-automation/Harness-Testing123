@@ -1,0 +1,30 @@
+pipeline:
+  name: jan13pipeline3
+  identifier: jan13pipeline3
+  projectIdentifier: AmitTest
+  orgIdentifier: GitXOrg
+  tags: {}
+  stages:
+    - stage:
+        name: stage1
+        identifier: stage1
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  name: step3
+                  identifier: step3
+                  template:
+                    templateRef: Jan13Step
+                    versionLabel: "1"
+                    templateInputs:
+                      type: ShellScript
+                      timeout: <+input>
+                      spec:
+                        source:
+                          type: Inline
+                          spec:
+                            script: <+input>
+        tags: {}
