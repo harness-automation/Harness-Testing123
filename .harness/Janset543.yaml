@@ -1,0 +1,22 @@
+inputSet:
+  name: Janset543
+  identifier: Janset543
+  orgIdentifier: default
+  projectIdentifier: AmitTest
+  pipeline:
+    identifier: pipeJan26
+    stages:
+      - stage:
+          identifier: S21
+          type: Custom
+          spec:
+            execution:
+              steps:
+                - step:
+                    identifier: ShellScript_1
+                    type: ShellScript
+                    spec:
+                      source:
+                        type: Inline
+                        spec:
+                          script: echo 'hi'
