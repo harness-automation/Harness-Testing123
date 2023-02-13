@@ -29,7 +29,7 @@ pipeline:
           execution:
             steps:
               - step:
-                  name: Rollout Deployment
+                  name: Rollout Deployment - 123
                   identifier: rolloutDeployment
                   type: K8sRollingDeploy
                   timeout: 10m
