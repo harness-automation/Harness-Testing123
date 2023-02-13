@@ -1,0 +1,16 @@
+template:
+  name: temp2Feb13
+  identifier: temp2Feb13
+  versionLabel: "1"
+  type: Step
+  projectIdentifier: test_migration_2
+  orgIdentifier: default
+  tags: {}
+  spec:
+    timeout: <+input>
+    type: K8sDelete
+    spec:
+      deleteResources:
+        type: ResourceName
+        spec:
+          resourceNames: <+input>
