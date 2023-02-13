@@ -1,0 +1,17 @@
+template:
+  name: test mohit template
+  identifier: test_mohit_template
+  versionLabel: test
+  type: Step
+  projectIdentifier: test_migration_3
+  orgIdentifier: default
+  tags: {}
+  spec:
+    type: Http
+    timeout: 10s
+    spec:
+      url: <+input>
+      method: <+input>
+      headers: []
+      outputVariables: []
+      requestBody: <+input>
