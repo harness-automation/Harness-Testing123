@@ -25,3 +25,14 @@ template:
                 environmentVariables: []
                 outputVariables: []
               timeout: 10m
+          - step:
+              name: s2
+              identifier: s2
+              template:
+                templateRef: account.pl_auto_template_ptNKy
+                versionLabel: v3
+                templateInputs:
+                  type: HarnessApproval
+                  spec:
+                    approvers:
+                      userGroups: <+input>
