@@ -1,0 +1,39 @@
+pipeline:
+  name: pipeline get batch march8
+  identifier: pipeline_get_batch_march8
+  projectIdentifier: AmitTest
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: S1
+        identifier: S1
+        template:
+          templateRef: stage_check_batch_mar_8
+          versionLabel: "1"
+    - stage:
+        name: S2
+        identifier: S2
+        template:
+          templateRef: stage2Feb2
+          versionLabel: c1
+    - stage:
+        name: s3
+        identifier: s3
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  name: st1
+                  identifier: st1
+                  template:
+                    templateRef: account.pl_auto_template_ptNKy
+                    versionLabel: v3
+                    templateInputs:
+                      type: HarnessApproval
+                      spec:
+                        approvers:
+                          userGroups: <+input>
+        tags: {}
