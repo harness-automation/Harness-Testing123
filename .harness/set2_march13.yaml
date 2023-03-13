@@ -1,0 +1,23 @@
+inputSet:
+  name: set2 march13
+  identifier: set2_march13
+  description: different repo default branch
+  orgIdentifier: default
+  projectIdentifier: AmitTest
+  pipeline:
+    identifier: pipe1_march13
+    stages:
+      - stage:
+          identifier: S12
+          type: Custom
+          spec:
+            execution:
+              steps:
+                - step:
+                    identifier: ShellScript_1
+                    type: ShellScript
+                    spec:
+                      source:
+                        type: Inline
+                        spec:
+                          script: echo hi
