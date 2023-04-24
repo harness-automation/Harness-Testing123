@@ -82,3 +82,4 @@ pipeline:
                 - AllErrors
               action:
                 type: MarkAsSuccess
+  allowStageExecutions: true
