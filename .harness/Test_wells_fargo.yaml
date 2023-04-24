@@ -51,8 +51,7 @@ pipeline:
         spec:
           deploymentType: Kubernetes
           service:
-            useFromStage:
-              stage: S1
+            serviceRef: S2
           environment:
             environmentRef: qa
             deployToAll: false
