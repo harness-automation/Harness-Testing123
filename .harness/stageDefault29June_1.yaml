@@ -23,4 +23,4 @@ template:
                     source:
                       type: Inline
                       spec:
-                        script: echo 123
+                        script: echo 123456
