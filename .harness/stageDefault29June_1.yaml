@@ -1,0 +1,27 @@
+template:
+  name: stageDefault29June
+  identifier: stageDefault29June
+  versionLabel: "1"
+  type: Stage
+  projectIdentifier: AmitTest
+  orgIdentifier: GitXOrg
+  tags: {}
+  spec:
+    type: Custom
+    spec:
+      execution:
+        steps:
+          - step:
+              name: step1
+              identifier: step1
+              template:
+                templateRef: stepDefault29June
+                versionLabel: "1"
+                templateInputs:
+                  type: ShellScript
+                  timeout: <+input>
+                  spec:
+                    source:
+                      type: Inline
+                      spec:
+                        script: <+input>
