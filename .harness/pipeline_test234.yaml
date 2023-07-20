@@ -1,0 +1,22 @@
+pipeline:
+  name: pipeline test234
+  identifier: pipeline_test234
+  projectIdentifier: AmitTest
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: s23
+        identifier: s23
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  type: Wait
+                  name: Wait_1
+                  identifier: Wait_1
+                  spec:
+                    duration: 10m
+        tags: {}
