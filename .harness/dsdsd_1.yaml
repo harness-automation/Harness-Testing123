@@ -1,0 +1,63 @@
+template:
+  name: Populate Artifacts
+  type: Stage
+  spec:
+    type: Deployment
+    spec:
+      deploymentType: Kubernetes
+      environment:
+        environmentRef: account.dev1
+        deployToAll: false
+        infrastructureDefinitions:
+          - identifier: default
+      execution:
+        steps:
+          - step:
+              type: ShellScript
+              name: parse build number
+              identifier: parse_build_number
+              spec:
+                shell: Bash
+                onDelegate: true
+                source:
+                  type: Inline
+                  spec:
+                    script: |
+                      export buildno=<+<+artifact.tag.split('-')>[<+artifact.tag.split('-').size()-1>]>
+                      export repo_name=<+serviceVariables.repo_name>
+
+                      export dev1_artifact_tag="$(echo '<+pipeline.stages.Populate_Artifacts.spec.artifacts.primary.tag>' | sed 's/_staging-/_dev1-/' | sed 's/_production-/_dev1-/')"
+                      export staging_artifact_tag="$(echo '<+pipeline.stages.Populate_Artifacts.spec.artifacts.primary.tag>' | sed 's/_dev1-/_staging-/' | sed 's/_production-/_staging-/')"
+                      export production_artifact_tag="$(echo '<+pipeline.stages.Populate_Artifacts.spec.artifacts.primary.tag>' | sed 's/_staging-/_production-/' | sed 's/_dev1-/_production-/')"
+                environmentVariables: []
+                outputVariables:
+                  - name: buildno
+                    type: String
+                    value: buildno
+                  - name: repo_name
+                    type: String
+                    value: repo_name
+                  - name: dev1_artifact_tag
+                    type: String
+                    value: dev1_artifact_tag
+                  - name: staging_artifact_tag
+                    type: String
+                    value: staging_artifact_tag
+                  - name: production_artifact_tag
+                    type: String
+                    value: production_artifact_tag
+              timeout: 10m
+        rollbackSteps: []
+      gitOpsEnabled: false
+      service:
+        serviceRef: <+input>
+        serviceInputs: <+input>
+    failureStrategies:
+      - onFailure:
+          errors:
+            - AllErrors
+          action:
+            type: StageRollback
+    gitOpsEnabled: false
+  identifier: Populate_Artifacts
+  versionLabel: v1
