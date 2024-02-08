@@ -1,0 +1,22 @@
+inputSet:
+  name: set8feb
+  identifier: set8feb
+  orgIdentifier: Pipelines_NonK8s_Org_NG
+  projectIdentifier: TestAmit123
+  pipeline:
+    identifier: testChlidSSH_MAiN
+    stages:
+      - stage:
+          identifier: s1
+          type: Custom
+          spec:
+            execution:
+              steps:
+                - step:
+                    identifier: ShellScript_1
+                    type: ShellScript
+                    spec:
+                      source:
+                        type: Inline
+                        spec:
+                          script: echo 'hi'
