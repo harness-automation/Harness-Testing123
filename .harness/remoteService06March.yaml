@@ -1,5 +1,4 @@
 service:
-  name: remoteService06March
-  identifier: remoteService06March
+  name: remoteService06March identifier: remoteService06March
   orgIdentifier: Pipelines_NonK8s_Org_NG
   projectIdentifier: AmitTest
