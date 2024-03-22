@@ -1,0 +1,35 @@
+pipeline:
+  name: testParent22March
+  identifier: testParent22March
+  projectIdentifier: AmitTest
+  orgIdentifier: Pipelines_NonK8s_Org_NG
+  tags: {}
+  stages:
+    - stage:
+        name: s1
+        identifier: s1
+        description: ""
+        type: Pipeline
+        spec:
+          org: Pipelines_NonK8s_Org_NG
+          pipeline: testChild22Mar1
+          project: AmitTest
+          inputs:
+            identifier: testChild22Mar1
+            template:
+              templateInputs:
+                stages:
+                  - stage:
+                      identifier: s1
+                      type: Custom
+                      spec:
+                        execution:
+                          steps:
+                            - step:
+                                identifier: ShellScript_1
+                                type: ShellScript
+                                spec:
+                                  source:
+                                    type: Inline
+                                    spec:
+                                      script: <+input>
