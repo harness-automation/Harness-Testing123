@@ -33,3 +33,6 @@ pipeline:
                                     type: Inline
                                     spec:
                                       script: <+input>
+          outputs:
+            - name: cxcxv
+              value: <+pipeline.executionId>
