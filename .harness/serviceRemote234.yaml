@@ -1,0 +1,5 @@
+service:
+  name: serviceRemote234
+  identifier: serviceRemote234
+  orgIdentifier: default
+  projectIdentifier: AmitTest2
