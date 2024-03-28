@@ -1,0 +1,29 @@
+pipeline:
+  name: testRemotePipeline28March
+  identifier: testRemotePipeline28March
+  projectIdentifier: AmitTest2
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: s1
+        identifier: s1
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  name: step23
+                  identifier: step23
+                  template:
+                    templateRef: stepTemplate1
+                    versionLabel: "1"
+                    templateInputs:
+                      type: ShellScript
+                      spec:
+                        source:
+                          type: Inline
+                          spec:
+                            script: <+input>
+        tags: {}
