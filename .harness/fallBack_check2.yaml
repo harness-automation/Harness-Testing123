@@ -1,0 +1,22 @@
+pipeline:
+  name: fallBack check2
+  identifier: fallBack_check2
+  projectIdentifier: AmitTest
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: stage1
+        identifier: stage1
+        template:
+          templateRef: Stage3Caching
+          versionLabel: "1"
+          templateInputs:
+            type: Deployment
+            spec:
+              infrastructure:
+                infrastructureDefinition:
+                  type: KubernetesDirect
+                  spec:
+                    connectorRef: <+input>
+                    namespace: <+input>

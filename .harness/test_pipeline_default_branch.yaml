@@ -1,0 +1,17 @@
+pipeline:
+  name: "test pipeline default branch "
+  identifier: test_pipeline_default_branch
+  projectIdentifier: Test_project
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: s1
+        identifier: s1
+        description: ""
+        type: Pipeline
+        spec:
+          org: Simlified_Git_sync
+          pipeline: test_child_pipeline_default_branch
+          project: SimplifiedGitSync_Do_Not_Delete
+          inputSetReferences: []
