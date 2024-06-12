@@ -1,6 +1,6 @@
 pipeline:
   name: pipeline1
-  identifier: pipeline1
+identifier: pipeline1
   projectIdentifier: AmitTest2
   orgIdentifier: default
   tags: {}
