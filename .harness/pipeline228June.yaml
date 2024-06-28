@@ -41,4 +41,17 @@ pipeline:
                     environmentVariables: []
                     outputVariables: []
                   timeout: 10m
+              - step:
+                  name: st3
+                  identifier: st3
+                  template:
+                    templateRef: remote28JuneTemplate
+                    versionLabel: "1"
+                    templateInputs:
+                      type: ShellScript
+                      spec:
+                        source:
+                          type: Inline
+                          spec:
+                            script: <+input>
         tags: {}
