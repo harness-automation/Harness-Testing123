@@ -1,0 +1,21 @@
+template:
+  name: remote28JuneTemplate
+  identifier: remote28JuneTemplate
+  versionLabel: "1"
+  type: Step
+  projectIdentifier: Auto_entity
+  orgIdentifier: Pipelines_NonK8s_Org_NG
+  tags: {}
+  spec:
+    timeout: 10m
+    type: ShellScript
+    spec:
+      shell: Bash
+      executionTarget: {}
+      delegateSelectors: []
+      source:
+        type: Inline
+        spec:
+          script: <+input>
+      environmentVariables: []
+      outputVariables: []
