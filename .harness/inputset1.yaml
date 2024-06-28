@@ -1,0 +1,22 @@
+inputSet:
+  name: input-set1
+  identifier: inputset1
+  orgIdentifier: Pipelines_NonK8s_Org_NG
+  projectIdentifier: Auto_entity
+  pipeline:
+    identifier: pipeline228June
+    stages:
+      - stage:
+          identifier: s1
+          type: Custom
+          spec:
+            execution:
+              steps:
+                - step:
+                    identifier: ShellScript_1
+                    type: ShellScript
+                    spec:
+                      source:
+                        type: Inline
+                        spec:
+                          script: echo 'hi test'
