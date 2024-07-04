@@ -4,8 +4,8 @@ pipeline:
   projectIdentifier: AmitTest
   orgIdentifier: Pipelines_NonK8s_Org_NG
   tags:
-    T1: V1
     T3: V3
+    T1: V1
   stages:
     - stage:
         name: s1
@@ -22,3 +22,4 @@ pipeline:
                   spec:
                     duration: 10m
         tags: {}
+  description: test remote
