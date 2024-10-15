@@ -11,6 +11,7 @@ pipeline:
         tags: {}
         template:
           templateRef: stage1
+          versionLabel: v2
     - stage:
         name: s3
         identifier: s3
