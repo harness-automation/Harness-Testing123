@@ -9,6 +9,6 @@ pipeline:
         tags: {}
         template:
           templateRef: stage1
-          versionLabel: v1
+          versionLabel: v2
   identifier: pipeline1_Clone15Oct
   name: pipeline1 - Clone15Oct
