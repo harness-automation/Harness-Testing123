@@ -32,5 +32,50 @@ pipeline:
                               - name: var1
                                 type: String
                                 value: <+input>
+    - stage:
+        name: s34
+        identifier: s34
+        tags: {}
+        template:
+          templateRef: org.stageOrg1
+          versionLabel: v2
+          templateInputs:
+            type: Custom
+            spec:
+              execution:
+                steps:
+                  - step:
+                      identifier: s1
+                      template:
+                        templateInputs:
+                          type: ShellScript
+                          spec:
+                            environmentVariables:
+                              - name: var1
+                                type: String
+                                value: <+input>
+    - stage:
+        name: s56
+        identifier: s56
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  name: xcxv
+                  identifier: xcxv
+                  template:
+                    templateRef: remoteStep15Oct
+                    versionLabel: v1
+                    gitBranch: 7feb
+                    templateInputs:
+                      type: ShellScript
+                      spec:
+                        source:
+                          type: Inline
+                          spec:
+                            script: <+input>
+        tags: {}
   identifier: pipeline1_Clone15Oct
   name: pipeline1 - Clone15Oct
