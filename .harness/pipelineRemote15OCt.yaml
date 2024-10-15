@@ -1,0 +1,56 @@
+pipeline:
+  name: pipelineRemote15OCt
+  identifier: pipelineRemote15OCt
+  projectIdentifier: amittest
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: s2
+        identifier: s2
+        tags: {}
+        template:
+          templateRef: stage1
+    - stage:
+        name: s3
+        identifier: s3
+        tags: {}
+        template:
+          templateRef: org.stageOrg1
+          templateInputs:
+            type: Custom
+            spec:
+              execution:
+                steps:
+                  - step:
+                      identifier: s1
+                      template:
+                        templateInputs:
+                          type: ShellScript
+                          spec:
+                            environmentVariables:
+                              - name: var1
+                                type: String
+                                value: <+input>
+    - stage:
+        name: s4
+        identifier: s4
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  name: s23
+                  identifier: s23
+                  template:
+                    templateRef: remoteStep15Oct
+                    gitBranch: 7feb
+                    templateInputs:
+                      type: ShellScript
+                      spec:
+                        source:
+                          type: Inline
+                          spec:
+                            script: <+input>
+        tags: {}
