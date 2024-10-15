@@ -1,0 +1,14 @@
+pipeline:
+  projectIdentifier: amittest
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: s2
+        identifier: s2
+        tags: {}
+        template:
+          templateRef: stage1
+          versionLabel: v1
+  identifier: pipeline1_Clone15Oct
+  name: pipeline1 - Clone15Oct
