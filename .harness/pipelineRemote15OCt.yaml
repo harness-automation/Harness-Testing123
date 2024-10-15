@@ -55,3 +55,10 @@ pipeline:
                           spec:
                             script: <+input>
         tags: {}
+    - stage:
+        name: s5
+        identifier: s5
+        tags: {}
+        template:
+          templateRef: stage1
+          versionLabel: v1
