@@ -41,19 +41,10 @@ pipeline:
           versionLabel: v2
           templateInputs:
             type: Custom
-            spec:
-              execution:
-                steps:
-                  - step:
-                      identifier: s1
-                      template:
-                        templateInputs:
-                          type: ShellScript
-                          spec:
-                            environmentVariables:
-                              - name: var1
-                                type: String
-                                value: <+input>
+            variables:
+              - name: dc
+                type: String
+                value: <+input>
     - stage:
         name: s56
         identifier: s56
