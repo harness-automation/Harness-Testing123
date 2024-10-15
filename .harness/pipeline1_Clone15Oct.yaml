@@ -10,5 +10,27 @@ pipeline:
         template:
           templateRef: stage1
           versionLabel: v2
+    - stage:
+        name: s3
+        identifier: s3
+        tags: {}
+        template:
+          templateRef: org.stageOrg1
+          versionLabel: v1
+          templateInputs:
+            type: Custom
+            spec:
+              execution:
+                steps:
+                  - step:
+                      identifier: s1
+                      template:
+                        templateInputs:
+                          type: ShellScript
+                          spec:
+                            environmentVariables:
+                              - name: var1
+                                type: String
+                                value: <+input>
   identifier: pipeline1_Clone15Oct
   name: pipeline1 - Clone15Oct
