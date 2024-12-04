@@ -15,8 +15,8 @@ pipeline:
             steps:
               - step:
                   type: Wait
-                  name: Wait_1
+                  name: Wait_1wqeqe
                   identifier: Wait_1
                   spec:
-                    duration: 112m
+                    duration: 113552m
         tags: {}
