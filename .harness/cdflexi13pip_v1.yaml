@@ -1,0 +1,37 @@
+template:
+  name: cd-flexi-13-pip
+  identifier: cdflexi13pip
+  versionLabel: v1
+  type: Pipeline
+  projectIdentifier: chetanTest
+  orgIdentifier: Pipelines_NonK8s_Org_NG
+  tags: {}
+  spec:
+    stages:
+      - parallel:
+          - insert:
+              name: insert1
+              identifier: insert1
+              stages: <+input>
+          - insert:
+              name: insert3
+              identifier: insert3
+              stages: <+input>
+          - insert:
+              name: insert4
+              identifier: insert4
+              stages: <+input>
+      - insert:
+          name: insert2
+          identifier: insert2
+          stages: <+input>
+      - insert:
+          name: insert5
+          identifier: insert5
+          stages: <+input>
+    variables:
+      - name: var1
+        type: String
+        description: ""
+        required: false
+        value: test
