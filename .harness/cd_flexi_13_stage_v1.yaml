@@ -1,0 +1,33 @@
+template:
+  name: cd_flexi_13_stage
+  identifier: cd_flexi_13_stage
+  versionLabel: v1
+  type: Stage
+  projectIdentifier: chetanTest
+  orgIdentifier: Pipelines_NonK8s_Org_NG
+  tags: {}
+  spec:
+    type: Custom
+    spec:
+      execution:
+        steps:
+          - parallel:
+              - insert:
+                  name: insert1
+                  identifier: insert1
+                  steps: <+input>
+              - insert:
+                  name: insert3
+                  identifier: insert3
+                  steps: <+input>
+          - insert:
+              name: inseert2
+              identifier: inseert2
+              steps: <+input>
+        rollbackSteps: []
+      serviceDependencies: []
+      environment:
+        environmentRef: e1
+        deployToAll: false
+        infrastructureDefinitions:
+          - identifier: infra1
