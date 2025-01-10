@@ -30,12 +30,6 @@ pipeline:
                             - serviceRef: helmSrv2
                           metadata:
                             parallel: true
-                        environmentGroup:
-                          envGroupRef: envGrp
-                          metadata:
-                            parallel: true
-                          deployToAll: true
-                          environments: <+input>
                         execution:
                           steps:
                             - step:
@@ -52,6 +46,16 @@ pipeline:
                                 type: HelmRollback
                                 timeout: 10m
                                 spec: {}
+                        environments:
+                          metadata:
+                            parallel: false
+                          values:
+                            - environmentRef: e1
+                              deployToAll: true
+                              infrastructureDefinitions: <+input>
+                            - environmentRef: env2
+                              deployToAll: true
+                              infrastructureDefinitions: <+input>
                       tags: {}
                       failureStrategies:
                         - onFailure:
@@ -70,19 +74,128 @@ pipeline:
                           - parallel:
                               - insert:
                                   identifier: insert1
-                                  steps: <+input>
+                                  steps:
+                                    - step:
+                                        type: ShellScript
+                                        name: ShellScript_1
+                                        identifier: ShellScript_1
+                                        spec:
+                                          shell: Bash
+                                          executionTarget: {}
+                                          source:
+                                            type: Inline
+                                            spec:
+                                              script: echo "hi"
+                                          environmentVariables: []
+                                          outputVariables: []
+                                        timeout: 10m
                               - insert:
                                   identifier: insert3
-                                  steps: <+input>
+                                  steps:
+                                    - step:
+                                        type: Wait
+                                        name: Wait_1
+                                        identifier: Wait_1
+                                        spec:
+                                          duration: 10s
                           - insert:
                               identifier: inseert2
-                              steps: <+input>
+                              steps:
+                                - stepGroup:
+                                    name: steGrp
+                                    identifier: steGrp
+                                    steps:
+                                      - step:
+                                          type: HarnessApproval
+                                          name: HarnessApproval_1
+                                          identifier: HarnessApproval_1
+                                          spec:
+                                            approvalMessage: Please review the following information and approve the pipeline progression
+                                            includePipelineExecutionHistory: true
+                                            isAutoRejectEnabled: false
+                                            approvers:
+                                              userGroups:
+                                                - account._account_all_users
+                                              minimumCount: 1
+                                              disallowPipelineExecutor: false
+                                            approverInputs: []
+                                          timeout: 1d
             - insert:
                 identifier: insert5
-                stages: <+input>
+                stages:
+                  - stage:
+                      name: helm2
+                      identifier: helm2
+                      description: ""
+                      type: Deployment
+                      spec:
+                        deploymentType: NativeHelm
+                        environments:
+                          metadata:
+                            parallel: false
+                          values:
+                            - environmentRef: e1
+                              deployToAll: false
+                              infrastructureDefinitions:
+                                - identifier: inf1
+                        execution:
+                          steps:
+                            - step:
+                                type: HelmDeploy
+                                name: HelmDeploy_1
+                                identifier: HelmDeploy_1
+                                spec:
+                                  skipDryRun: false
+                                  ignoreReleaseHistFailStatus: false
+                                timeout: 10m
+                          rollbackSteps:
+                            - step:
+                                type: HelmRollback
+                                name: HelmRollback_1
+                                identifier: HelmRollback_1
+                                spec:
+                                  skipDryRun: false
+                                timeout: 10m
+                        service:
+                          serviceRef: helmSrv
+                          serviceInputs:
+                            serviceDefinition:
+                              type: NativeHelm
+                              spec:
+                                artifacts:
+                                  primary:
+                                    primaryArtifactRef: <+input>
+                                    sources: <+input>
+                      tags: {}
+                      failureStrategies:
+                        - onFailure:
+                            errors:
+                              - AllErrors
+                            action:
+                              type: StageRollback
         - insert:
             identifier: insert2
-            stages: <+input>
+            stages:
+              - stage:
+                  name: fleci2
+                  identifier: fleci2
+                  description: ""
+                  type: Custom
+                  spec:
+                    execution:
+                      steps:
+                        - step:
+                            type: Wait
+                            name: Wait_1
+                            identifier: Wait_1
+                            spec:
+                              duration: 10s
+                    environment:
+                      environmentRef: e1
+                      deployToAll: false
+                      infrastructureDefinitions:
+                        - identifier: inf1
+                  tags: {}
   projectIdentifier: chetanTest
   orgIdentifier: Pipelines_NonK8s_Org_NG
   identifier: cdflexi13pipeline_Clone
