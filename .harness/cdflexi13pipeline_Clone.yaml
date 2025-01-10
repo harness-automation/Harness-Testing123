@@ -141,15 +141,15 @@ pipeline:
                         execution:
                           steps:
                             - step:
-                                name: deploy-flexi
-                                identifier: deployflexi
+                                name: helm flexi
+                                identifier: helm_flexi
                                 template:
                                   templateRef: cd_flexi_13_step
                                   versionLabel: v1
                           rollbackSteps:
                             - step:
-                                name: flexi rollback
-                                identifier: flexi_rollback
+                                name: helm flexi 13
+                                identifier: helm_flexi_13
                                 template:
                                   templateRef: cd_flexi13_step13
                                   versionLabel: v1
