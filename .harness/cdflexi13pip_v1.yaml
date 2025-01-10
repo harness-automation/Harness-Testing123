@@ -13,21 +13,35 @@ template:
               name: insert1
               identifier: insert1
               stages: <+input>
+          - stage:
+              name: cd-flex
+              identifier: cdflex
+              tags: {}
+              template:
+                templateRef: cd_flexi_13_stage
+                versionLabel: v1
+                templateInputs:
+                  type: Custom
+                  spec:
+                    execution:
+                      steps:
+                        - parallel:
+                            - insert:
+                                identifier: insert1
+                                steps: <+input>
+                            - insert:
+                                identifier: insert3
+                                steps: <+input>
+                        - insert:
+                            identifier: inseert2
+                            steps: <+input>
           - insert:
-              name: insert3
-              identifier: insert3
-              stages: <+input>
-          - insert:
-              name: insert4
-              identifier: insert4
+              name: insert5
+              identifier: insert5
               stages: <+input>
       - insert:
           name: insert2
           identifier: insert2
-          stages: <+input>
-      - insert:
-          name: insert5
-          identifier: insert5
           stages: <+input>
     variables:
       - name: var1
