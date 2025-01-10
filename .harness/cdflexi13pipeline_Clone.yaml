@@ -140,36 +140,19 @@ pipeline:
                                 - identifier: inf1
                         execution:
                           steps:
-                            - parallel:
-                                - step:
-                                    type: HelmDeploy
-                                    name: HelmDeploy_1
-                                    identifier: HelmDeploy_1
-                                    spec:
-                                      skipDryRun: false
-                                      ignoreReleaseHistFailStatus: false
-                                    timeout: 10m
-                                - step:
-                                    name: deploy-flexi
-                                    identifier: deployflexi
-                                    template:
-                                      templateRef: cd_flexi_13_step
-                                      versionLabel: v1
+                            - step:
+                                name: deploy-flexi
+                                identifier: deployflexi
+                                template:
+                                  templateRef: cd_flexi_13_step
+                                  versionLabel: v1
                           rollbackSteps:
-                            - parallel:
-                                - step:
-                                    type: HelmRollback
-                                    name: HelmRollback_1
-                                    identifier: HelmRollback_1
-                                    spec:
-                                      skipDryRun: false
-                                    timeout: 10m
-                                - step:
-                                    name: flexi rollback
-                                    identifier: flexi_rollback
-                                    template:
-                                      templateRef: cd_flexi13_step13
-                                      versionLabel: v1
+                            - step:
+                                name: flexi rollback
+                                identifier: flexi_rollback
+                                template:
+                                  templateRef: cd_flexi13_step13
+                                  versionLabel: v1
                         service:
                           serviceRef: helmSrv
                           serviceInputs:
