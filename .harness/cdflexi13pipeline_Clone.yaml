@@ -39,6 +39,8 @@ pipeline:
                                 timeout: 10m
                                 spec:
                                   skipDryRun: false
+                                  ignoreReleaseHistFailStatus: false
+                                  skipSteadyStateCheck: true
                           rollbackSteps:
                             - step:
                                 name: Helm Rollback
