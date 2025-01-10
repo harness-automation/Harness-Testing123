@@ -8,7 +8,57 @@ pipeline:
         - parallel:
             - insert:
                 identifier: insert1
-                stages: <+input>
+                stages:
+                  - stage:
+                      name: Helm
+                      identifier: Helm
+                      description: ""
+                      type: Deployment
+                      spec:
+                        deploymentType: NativeHelm
+                        services:
+                          values:
+                            - serviceRef: helmSrv
+                              serviceInputs:
+                                serviceDefinition:
+                                  type: NativeHelm
+                                  spec:
+                                    artifacts:
+                                      primary:
+                                        primaryArtifactRef: <+input>
+                                        sources: <+input>
+                            - serviceRef: helmSrv2
+                          metadata:
+                            parallel: true
+                        environmentGroup:
+                          envGroupRef: envGrp
+                          metadata:
+                            parallel: true
+                          deployToAll: true
+                          environments: <+input>
+                        execution:
+                          steps:
+                            - step:
+                                name: Helm Deployment
+                                identifier: helmDeployment
+                                type: HelmDeploy
+                                timeout: 10m
+                                spec:
+                                  skipDryRun: false
+                          rollbackSteps:
+                            - step:
+                                name: Helm Rollback
+                                identifier: helmRollback
+                                type: HelmRollback
+                                timeout: 10m
+                                spec: {}
+                      tags: {}
+                      failureStrategies:
+                        - onFailure:
+                            errors:
+                              - AllErrors
+                            action:
+                              type: StageRollback
             - insert:
                 identifier: insert3
                 stages: <+input>
