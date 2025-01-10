@@ -59,17 +59,29 @@ pipeline:
                               - AllErrors
                             action:
                               type: StageRollback
+            - stage:
+                identifier: cdflex
+                template:
+                  templateInputs:
+                    type: Custom
+                    spec:
+                      execution:
+                        steps:
+                          - parallel:
+                              - insert:
+                                  identifier: insert1
+                                  steps: <+input>
+                              - insert:
+                                  identifier: insert3
+                                  steps: <+input>
+                          - insert:
+                              identifier: inseert2
+                              steps: <+input>
             - insert:
-                identifier: insert3
-                stages: <+input>
-            - insert:
-                identifier: insert4
+                identifier: insert5
                 stages: <+input>
         - insert:
             identifier: insert2
-            stages: <+input>
-        - insert:
-            identifier: insert5
             stages: <+input>
   projectIdentifier: chetanTest
   orgIdentifier: Pipelines_NonK8s_Org_NG
