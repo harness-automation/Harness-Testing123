@@ -1,0 +1,19 @@
+inputSet:
+  name: mainInputSet
+  identifier: mainInputSet
+  orgIdentifier: default
+  projectIdentifier: DoNotDelete_Bhumij
+  pipeline:
+    identifier: branchSelectorTest
+    stages:
+      - stage:
+          identifier: cs
+          type: Custom
+          spec:
+            execution:
+              steps:
+                - step:
+                    identifier: Wait_1
+                    type: Wait
+                    spec:
+                      duration: 1w 3d
